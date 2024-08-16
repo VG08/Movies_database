@@ -11,7 +11,7 @@ def create_dbconnect():
     "host":"localhost",
     "user":"root",
     "password":"",
-    "database" : "Moviesdb",
+    "database" : "MovieDB",
   'raise_on_warnings': True}
 
         conn  = mysql.connector.connect(**config)
@@ -27,8 +27,8 @@ conn = create_dbconnect ()
 
 def RetrieveMovies(n, conn):
     cur = conn.cursor()
-    cur.execute("SELECT * FROM movies")
-    movies = cur.fetchmany(n)
+    cur.execute("SELECT movies.Movie_name FROM movies join reviews on movies.id = reviews.movie_id ")
+    movies = cur.fetchall()
     return movies
 
 def AddNewMovie(name, date_of_release, cast, collection, genre, conn):
@@ -36,6 +36,7 @@ def AddNewMovie(name, date_of_release, cast, collection, genre, conn):
     sql = '''INSERT INTO movies (Movie_name, Date_of_Release, Cast, Collection, Genre) values( %s, %s,%s,%s,%s )'''
     cur = conn.cursor()
     cur.execute(sql, (name, date_of_release, cast, collection, genre))
+    conn.commit()
 conn = create_dbconnect ()
 print(conn.is_connected())
 AddNewMovie("test", "2009-03-30", "test", 2131, "Horror", conn)
