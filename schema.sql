@@ -75,7 +75,6 @@ CREATE TABLE `movies` (
   `Cast` varchar(255) NOT NULL,
   `Collection` int NOT NULL,
   `Avg_rating` int DEFAULT NULL,
-  `Rating_list` int DEFAULT NULL,
   `Genre` varchar(255) NOT NULL,
   `description` varchar(1000) DEFAULT NULL,
   `id` int unsigned NOT NULL AUTO_INCREMENT,
@@ -94,7 +93,7 @@ CREATE TABLE `reviews` (
   `review_id` int NOT NULL AUTO_INCREMENT,
   `review_text` varchar(1000) DEFAULT NULL,
   `movie_id` int unsigned NOT NULL,
-  `rating` decimal(10,0) NOT NULL,
+  `rating` decimal(2,1) NOT NULL,
   PRIMARY KEY (`review_id`),
   KEY `movie_id` (`movie_id`),
   CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`id`)
